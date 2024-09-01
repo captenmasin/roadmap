@@ -57,10 +57,10 @@ class Colors extends SettingsPage
                 ->schema(
                     [
                     FileUpload::make('logo')
-                        ->label(trans('theme.logo'))
+                        ->label('TODO: FIX THIS. ' . trans('theme.logo'))
                         ->image()
                         ->helperText(trans('theme.logo-helper-text'))
-                        ->disk('public')
+                        ->disk('local')
                     //                    ->imageResizeTargetHeight('64')
                         ->maxSize(1024)
                         ->getUploadedFileNameForStorageUsing(
