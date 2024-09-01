@@ -100,7 +100,9 @@ class Header extends Component implements HasForms, HasActions
                     ->minLength(3)
                     ->required();
 
-                if (app(GeneralSettings::class)->select_project_when_creating_item) {
+                if (app(GeneralSettings::class)->select_project_when_creating_item
+                    || auth()->user()->hasRole(UserRole::Admin)
+                ) {
                     $inputs[] = Select::make('project_id')
                         ->label(trans('table.project'))
                         ->reactive()
@@ -108,11 +110,13 @@ class Header extends Component implements HasForms, HasActions
                         ->required(app(GeneralSettings::class)->project_required_when_creating_item);
                 }
 
-                if (app(GeneralSettings::class)->select_board_when_creating_item) {
+                if (app(GeneralSettings::class)->select_board_when_creating_item
+                    || auth()->user()->hasRole(UserRole::Admin)
+                ) {
                     $inputs[] = Select::make('board_id')
                         ->label(trans('table.board'))
-                        ->visible(fn ($get) => $get('project_id'))
-                        ->options(fn ($get) => Project::find($get('project_id'))->boards()->where('can_users_create', true)->pluck('title', 'id'))
+                        ->visible(fn($get) => $get('project_id'))
+                        ->options(fn($get) => Project::find($get('project_id'))->boards()->where('can_users_create', true)->pluck('title', 'id'))
                         ->required(app(GeneralSettings::class)->board_required_when_creating_item);
                 }
 
@@ -125,6 +129,13 @@ class Header extends Component implements HasForms, HasActions
                         ->disableToolbarButtons(app(GeneralSettings::class)->getDisabledToolbarButtons())
                         ->minLength(10)
                         ->required()
+                ]);
+
+                $inputs[] = Group::make([
+                    TextInput::make('tags')
+                        ->label('Comma separated tags')
+                        ->visible(auth()->user()->hasRole(UserRole::Admin))
+                        ->columnSpan(2)
                 ]);
 
                 return $inputs;
@@ -145,11 +156,15 @@ class Header extends Component implements HasForms, HasActions
                 }
 
                 $item = Item::create([
-                    'title' => $data['title'],
-                    'content' => $data['content'],
+                    'title'      => $data['title'],
+                    'content'    => $data['content'],
                     'project_id' => $data['project_id'] ?? null,
-                    'board_id' => $data['board_id'] ?? null
+                    'board_id'   => $data['board_id'] ?? null,
                 ]);
+
+                if (auth()->user()->hasRole(UserRole::Admin)) {
+                    $item->attachTags(explode(',', $data['tags']));
+                }
 
                 $item->user()->associate(auth()->user())->save();
 
