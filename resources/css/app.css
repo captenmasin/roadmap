@@ -49,3 +49,7 @@
         }
     }
 }
+
+.fi-btn-label{
+    @apply !font-normal
+}
