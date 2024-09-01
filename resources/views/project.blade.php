@@ -29,14 +29,23 @@
                                 <a href="{{ route('projects.items.show', [$project, $item]) }}"
                                    class="block p-4 space-y-4 bg-white shadow rounded-xl hover:bg-gray-50">
                                     <div class="flex justify-between">
+                                        <div class="flex w-full flex-col">
                                         <p>
                                             {{ $item->title }}
                                         </p>
+                                        @if($item->tags->count() > 0)
+                                            <div class="text-sm text-brand-500 pt-2">
+                                                @foreach($item->tags as $tag)
+                                                    #{{ $tag->name }}
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                        </div>
 
                                         <div class="flex items-center">
                                             @if($item->isPrivate())
                                                 <span x-data x-tooltip.raw="{{ trans('items.item-private') }}">
-                                                    <x-heroicon-s-lock-closed class="text-gray-500 fill-gray-500 w-5 h-5" />
+                                                    <x-heroicon-s-lock-closed class="text-gray-500 fill-gray-500 w-5 h-5"/>
                                                 </span>
                                             @endif
                                             @if($item->isPinned())
@@ -52,10 +61,10 @@
                                     </div>
 
                                     <footer class="flex items-end justify-between">
-                                                    <span
-                                                        class="inline-flex items-center justify-center h-6 px-2 text-sm font-semibold tracking-tight text-gray-700 rounded-full bg-gray-50">
-                                                        {{ $item->created_at->isoFormat('ll') }}
-                                                    </span>
+                                        <span
+                                            class="inline-flex items-center justify-center h-6 px-2 text-sm font-semibold tracking-tight text-gray-700 rounded-full bg-gray-50">
+                                            {{ $item->created_at->isoFormat('ll') }}
+                                        </span>
 
                                         <div class="text-gray-500 text-sm">
                                             {{ $item->total_votes }} {{ trans_choice('messages.votes', $item->total_votes) }}
