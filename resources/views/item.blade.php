@@ -58,6 +58,11 @@
                 <div class="p-4 prose break-words">
                     {!! str($item->content)->markdown()->sanitizeHtml() !!}
                 </div>
+                <div class="p-4 text-sm text-brand-500 pt-0">
+                    @foreach($item->tags as $tag)
+                        #{{ $tag->name }}
+                    @endforeach
+                </div>
             </x-card>
 
             <livewire:item.comments :item="$item"/>

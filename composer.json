@@ -27,6 +27,7 @@
         "spatie/laravel-ray": "^1.32.2",
         "spatie/laravel-settings": "^3.3.2",
         "spatie/laravel-sitemap": "^7.0",
+        "spatie/laravel-tags": "^4.6",
         "spiral/roadrunner-cli": "^2.5.0",
         "spiral/roadrunner-http": "^3.0.1",
         "stechstudio/filament-impersonate": "^3.5",
@@ -37,6 +38,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
+        "barryvdh/laravel-ide-helper": "^3.1",
         "fakerphp/faker": "^1.9.1",
         "filament/upgrade": "^3.0-stable",
         "friendsofphp/php-cs-fixer": "^3.13.1",
