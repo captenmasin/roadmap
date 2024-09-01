@@ -61,9 +61,11 @@
 
                 @if($item->tags->count() > 0)
                     <div class="p-4 text-sm text-brand-500 pt-0">
-                        @foreach($item->tags as $tag)
-                            #{{ $tag->name }}
-                        @endforeach
+                        <ul class="flex items-center gap-4">
+                            @foreach($item->tags as $tag)
+                                <li>#{{ $tag->name }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 @endif
             </x-card>
