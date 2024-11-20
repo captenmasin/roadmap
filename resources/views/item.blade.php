@@ -58,6 +58,16 @@
                 <div class="p-4 prose dark:prose-invert break-words dark:text-gray-400">
                     {!! str($item->content)->markdown()->sanitizeHtml() !!}
                 </div>
+
+                @if($item->tags->count() > 0)
+                    <div class="p-4 text-sm text-brand-500 pt-0">
+                        <ul class="flex items-center gap-4">
+                            @foreach($item->tags as $tag)
+                                <li>#{{ $tag->name }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </x-card>
 
             <livewire:item.comments :item="$item"/>
@@ -128,13 +138,13 @@
                     </div>
                 @endif
 
-{{--                @if($item->tags->count() > 0)--}}
-{{--                    <div class="border-t mb-2"></div>--}}
+                {{--                @if($item->tags->count() > 0)--}}
+                {{--                    <div class="border-t mb-2"></div>--}}
 
-{{--                    @foreach($item->tags as $tag)--}}
-{{--                        <x-tag :tag="$tag"/>--}}
-{{--                    @endforeach--}}
-{{--                @endif--}}
+                {{--                    @foreach($item->tags as $tag)--}}
+                {{--                        <x-tag :tag="$tag"/>--}}
+                {{--                    @endforeach--}}
+                {{--                @endif--}}
             </x-card>
 
             <div class="relative">

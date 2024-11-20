@@ -38,8 +38,8 @@ class Item extends Model
     ];
 
     protected $casts = [
-        'pinned' => 'boolean',
-        'private' => 'boolean',
+        'pinned'             => 'boolean',
+        'private'            => 'boolean',
         'notify_subscribers' => 'boolean',
     ];
 
@@ -142,7 +142,7 @@ class Item extends Model
     {
         return match (app(GeneralSettings::class)->getInboxWorkflow()) {
             InboxWorkflow::WithoutBoardAndProject => $query->whereNull('project_id')->whereNull('board_id'),
-            InboxWorkflow::WithoutBoardOrProject => $query->where(fn ($query) => $query->orWhereNull('project_id')->orWhereNull('board_id')),
+            InboxWorkflow::WithoutBoardOrProject => $query->where(fn($query) => $query->orWhereNull('project_id')->orWhereNull('board_id')),
             InboxWorkflow::WithoutBoard => $query->whereNotNull('project_id')->whereNull('board_id'),
             InboxWorkflow::Disabled => null,
         };

@@ -97,14 +97,12 @@ class Colors extends SettingsPage
                                 ->required()
                                 ->helperText(new HtmlString(trans('theme.font-family-helper-text'))),
 
-                            ColorPicker::make('primary')
-                                ->label(trans('theme.primary-color'))
-                                ->default('#2563EB'),
+                    ColorPicker::make('primary')
+                        ->label(trans('theme.primary-color'))
+                        ->default('#2563EB'),
 
-                            Toggle::make('darkmode')
-                                ->helperText('Allow darkmode on the frontend')
-                        ]
-                    )->columns(),
+                    ]
+                )->columns(),
             ]
         );
     }
